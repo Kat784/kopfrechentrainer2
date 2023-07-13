@@ -29,11 +29,106 @@ radio.onReceivedNumber(function (receivedNumber) {
             . . . . .
             `)
         basic.setLedColor(0xffff00)
+    } else if (receivedNumber == 10) {
+        basic.showLeds(`
+            . . . . .
+            . # . # .
+            . . . . .
+            . # # # .
+            # . . . #
+            `)
+        basic.pause(2000)
+        music.playTone(233, music.beat(BeatFraction.Whole))
+        music.playTone(208, music.beat(BeatFraction.Whole))
+        music.playTone(185, music.beat(BeatFraction.Whole))
+        music.playTone(165, music.beat(BeatFraction.Whole))
+    } else if (receivedNumber == 20) {
+        Sieg()
     }
 })
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     radio.sendNumber(Antwort)
 })
+function Sieg () {
+    basic.showLeds(`
+        . . . . .
+        . # . # .
+        . . . . .
+        # . . . #
+        . # # # .
+        `)
+    music.playTone(523, music.beat(BeatFraction.Whole))
+    music.playTone(659, music.beat(BeatFraction.Whole))
+    music.playTone(587, music.beat(BeatFraction.Whole))
+    music.playTone(698, music.beat(BeatFraction.Whole))
+    music.playTone(784, music.beat(BeatFraction.Whole))
+    music.playTone(698, music.beat(BeatFraction.Whole))
+    music.playTone(880, music.beat(BeatFraction.Whole))
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . # . .
+        `)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . # . .
+        . # # # .
+        `)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . # . .
+        . # # # .
+        . # # # .
+        `)
+    basic.showLeds(`
+        . . . . .
+        . . # . .
+        . # # # .
+        . # # # .
+        . # # # .
+        `)
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        . # # # .
+        . # # # .
+        # # # # #
+        `)
+    basic.showLeds(`
+        . # # # .
+        . # # # .
+        . # # # .
+        # # # # #
+        . . . . .
+        `)
+    basic.showLeds(`
+        . # # # .
+        . # # # .
+        # # # # #
+        . . . . .
+        . . . . .
+        `)
+    basic.showLeds(`
+        . # # # .
+        # # # # #
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.showLeds(`
+        # # # # #
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.clearScreen()
+}
 radio.onReceivedString(function (receivedString) {
     basic.turnRgbLedOff()
     basic.clearScreen()
@@ -53,6 +148,9 @@ basic.forever(function () {
         Antwort += 10
         basic.showNumber(Antwort)
     } else if (input.isGesture(Gesture.ScreenDown)) {
+        Antwort += -1
+        basic.showNumber(Antwort)
+    } else if (input.isGesture(Gesture.Shake)) {
         Antwort = 0
         basic.showNumber(Antwort)
     }
