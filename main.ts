@@ -37,7 +37,7 @@ radio.onReceivedNumber(function (receivedNumber) {
             . # # # .
             # . . . #
             `)
-        basic.pause(2000)
+        basic.pause(3500)
         music.playTone(233, music.beat(BeatFraction.Whole))
         music.playTone(208, music.beat(BeatFraction.Whole))
         music.playTone(185, music.beat(BeatFraction.Whole))
