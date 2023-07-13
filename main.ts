@@ -3,6 +3,7 @@ enum RadioMessage {
 }
 radio.onReceivedNumber(function (receivedNumber) {
     if (receivedNumber == 1) {
+        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -12,6 +13,7 @@ radio.onReceivedNumber(function (receivedNumber) {
             `)
         basic.setLedColor(0x00ff00)
     } else if (receivedNumber == 2) {
+        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -21,6 +23,7 @@ radio.onReceivedNumber(function (receivedNumber) {
             `)
         basic.setLedColor(0xff0000)
     } else if (receivedNumber == 3) {
+        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -30,6 +33,7 @@ radio.onReceivedNumber(function (receivedNumber) {
             `)
         basic.setLedColor(0xffff00)
     } else if (receivedNumber == 10) {
+        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -37,12 +41,14 @@ radio.onReceivedNumber(function (receivedNumber) {
             . # # # .
             # . . . #
             `)
-        basic.pause(2000)
+        basic.setLedColor(0xff0000)
+        basic.pause(4000)
         music.playTone(233, music.beat(BeatFraction.Whole))
         music.playTone(208, music.beat(BeatFraction.Whole))
         music.playTone(185, music.beat(BeatFraction.Whole))
         music.playTone(165, music.beat(BeatFraction.Whole))
     } else if (receivedNumber == 20) {
+        Pause = true
         Sieg()
     }
 })
@@ -136,22 +142,27 @@ radio.onReceivedString(function (receivedString) {
     Antwort = 0
     basic.pause(200)
     basic.showNumber(Antwort)
+    Pause = false
 })
 let Antwort = 0
+let Pause = false
 basic.showString("B")
 radio.setGroup(1)
+Pause = false
 basic.forever(function () {
-    if (input.isGesture(Gesture.TiltLeft)) {
-        Antwort += 1
-        basic.showNumber(Antwort)
-    } else if (input.isGesture(Gesture.TiltRight)) {
-        Antwort += 10
-        basic.showNumber(Antwort)
-    } else if (input.isGesture(Gesture.ScreenDown)) {
-        Antwort += -1
-        basic.showNumber(Antwort)
-    } else if (input.isGesture(Gesture.Shake)) {
-        Antwort = 0
-        basic.showNumber(Antwort)
+    if (Pause == false) {
+        if (input.isGesture(Gesture.TiltLeft)) {
+            Antwort += 1
+            basic.showNumber(Antwort)
+        } else if (input.isGesture(Gesture.TiltRight)) {
+            Antwort += 10
+            basic.showNumber(Antwort)
+        } else if (input.isGesture(Gesture.ScreenDown)) {
+            Antwort += -1
+            basic.showNumber(Antwort)
+        } else if (input.isGesture(Gesture.Shake)) {
+            Antwort = 0
+            basic.showNumber(Antwort)
+        }
     }
 })
