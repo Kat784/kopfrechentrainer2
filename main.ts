@@ -3,7 +3,6 @@ enum RadioMessage {
 }
 radio.onReceivedNumber(function (receivedNumber) {
     if (receivedNumber == 1) {
-        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -13,7 +12,6 @@ radio.onReceivedNumber(function (receivedNumber) {
             `)
         basic.setLedColor(0x00ff00)
     } else if (receivedNumber == 2) {
-        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -23,7 +21,6 @@ radio.onReceivedNumber(function (receivedNumber) {
             `)
         basic.setLedColor(0xff0000)
     } else if (receivedNumber == 3) {
-        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -33,7 +30,6 @@ radio.onReceivedNumber(function (receivedNumber) {
             `)
         basic.setLedColor(0xffff00)
     } else if (receivedNumber == 10) {
-        Pause = true
         basic.showLeds(`
             . . . . .
             . # . # .
@@ -41,19 +37,18 @@ radio.onReceivedNumber(function (receivedNumber) {
             . # # # .
             # . . . #
             `)
-        basic.setLedColor(0xff0000)
-        basic.pause(4000)
+        basic.pause(2000)
         music.playTone(233, music.beat(BeatFraction.Whole))
         music.playTone(208, music.beat(BeatFraction.Whole))
         music.playTone(185, music.beat(BeatFraction.Whole))
         music.playTone(165, music.beat(BeatFraction.Whole))
     } else if (receivedNumber == 20) {
-        Pause = true
         Sieg()
     }
 })
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     radio.sendNumber(Antwort)
+    Pause = true
 })
 function Sieg () {
     basic.showLeds(`
