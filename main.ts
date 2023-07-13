@@ -46,6 +46,10 @@ radio.onReceivedNumber(function (receivedNumber) {
         Sieg()
     }
 })
+input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
+    basic.showString(Aufgabe)
+    basic.showNumber(Antwort)
+})
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     radio.sendNumber(Antwort)
     Pause = true
@@ -138,12 +142,15 @@ radio.onReceivedString(function (receivedString) {
     basic.pause(200)
     basic.showNumber(Antwort)
     Pause = false
+    Aufgabe = receivedString
 })
 let Antwort = 0
+let Aufgabe = ""
 let Pause = false
 basic.showString("B")
 radio.setGroup(1)
 Pause = false
+Aufgabe = ""
 basic.forever(function () {
     if (Pause == false) {
         if (input.isGesture(Gesture.TiltLeft)) {
