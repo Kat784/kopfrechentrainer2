@@ -2,7 +2,7 @@ enum RadioMessage {
     message1 = 49434
 }
 radio.onReceivedNumber(function (receivedNumber) {
-    Knopf_B_an = true
+    Knopf_B_an = false
     if (receivedNumber == 1) {
         basic.showLeds(`
             . . . . .
@@ -57,9 +57,9 @@ input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     basic.showNumber(Antwort)
 })
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
-    if (Knopf_B_an == false) {
+    if (Knopf_B_an == true) {
         radio.sendNumber(Antwort)
-        Knopf_B_an = true
+        Knopf_B_an = false
     }
 })
 function Sieg () {
@@ -148,7 +148,7 @@ radio.onReceivedString(function (receivedString) {
     Antwort = 0
     basic.pause(200)
     basic.showNumber(Antwort)
-    Knopf_B_an = false
+    Knopf_B_an = true
     Aufgabe = receivedString
 })
 let Antwort = 0
@@ -156,10 +156,10 @@ let Aufgabe = ""
 let Knopf_B_an = false
 basic.showString("B")
 radio.setGroup(1)
-Knopf_B_an = false
+Knopf_B_an = true
 Aufgabe = ""
 basic.forever(function () {
-    if (Knopf_B_an == false) {
+    if (Knopf_B_an == true) {
         if (input.isGesture(Gesture.TiltLeft)) {
             Antwort += 1
             basic.showNumber(Antwort)
