@@ -2,6 +2,7 @@ enum RadioMessage {
     message1 = 49434
 }
 radio.onReceivedNumber(function (receivedNumber) {
+    Knopf_B_an = true
     if (receivedNumber == 1) {
         basic.showLeds(`
             . . . . .
@@ -42,17 +43,24 @@ radio.onReceivedNumber(function (receivedNumber) {
         music.playTone(208, music.beat(BeatFraction.Whole))
         music.playTone(185, music.beat(BeatFraction.Whole))
         music.playTone(165, music.beat(BeatFraction.Whole))
+        basic.clearScreen()
+        basic.turnRgbLedOff()
     } else if (receivedNumber == 20) {
         Sieg()
+        basic.clearScreen()
+        basic.turnRgbLedOff()
     }
 })
 input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
+    basic.pause(200)
     basic.showString(Aufgabe)
     basic.showNumber(Antwort)
 })
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
-    radio.sendNumber(Antwort)
-    Pause = true
+    if (Knopf_B_an == false) {
+        radio.sendNumber(Antwort)
+        Knopf_B_an = true
+    }
 })
 function Sieg () {
     basic.showLeds(`
@@ -132,7 +140,6 @@ function Sieg () {
         . . . . .
         . . . . .
         `)
-    basic.clearScreen()
 }
 radio.onReceivedString(function (receivedString) {
     basic.turnRgbLedOff()
@@ -141,18 +148,18 @@ radio.onReceivedString(function (receivedString) {
     Antwort = 0
     basic.pause(200)
     basic.showNumber(Antwort)
-    Pause = false
+    Knopf_B_an = false
     Aufgabe = receivedString
 })
 let Antwort = 0
 let Aufgabe = ""
-let Pause = false
+let Knopf_B_an = false
 basic.showString("B")
 radio.setGroup(1)
-Pause = false
+Knopf_B_an = false
 Aufgabe = ""
 basic.forever(function () {
-    if (Pause == false) {
+    if (Knopf_B_an == false) {
         if (input.isGesture(Gesture.TiltLeft)) {
             Antwort += 1
             basic.showNumber(Antwort)
